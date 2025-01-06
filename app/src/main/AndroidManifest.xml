@@ -25,6 +25,11 @@
         <!-- Activitatea DashboardActivity -->
         <activity android:name=".DashboardActivity" />
 
+        <activity android:name=".ExerciseJournalActivity"></activity>
+
+        <activity android:name=".AddExerciseActivity"></activity>
+
+
 
 
     </application>
