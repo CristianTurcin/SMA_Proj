@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "879244872930",
+    "project_id": "mealtrackerproj",
+    "storage_bucket": "mealtrackerproj.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879244872930:android:a30b703a5e9dea466022bb",
+        "android_client_info": {
+          "package_name": "com.example.testproj"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO4scMJrFeHA-IbZ0ticLCqVH9kbmTSCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

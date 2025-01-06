@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">testProj</string>
+    <string name="dashboard_title">Dashboard</string>
+    <string name="exercise_journal_title">Jurnal de Exerciții</string>
+    <string name="meal_monitoring_title">Monitorizare Mese</string>
+
+</resources>

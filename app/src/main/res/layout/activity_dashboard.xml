@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    tools:ignore="ExtraText">
+
+
+    <!-- Text simplu pentru DashboardActivity -->
+    <TextView
+        android:id="@+id/textViewDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Buton pentru Jurnal Exerciții -->
+    <Button
+        android:id="@+id/buttonExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to Exercise Journal"
+        android:layout_below="@id/textViewDashboard"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Buton pentru Monitorizare Mese -->
+    <Button
+        android:id="@+id/buttonMeals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to Meal Tracker"
+        android:layout_below="@id/buttonExercise"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+</RelativeLayout>
