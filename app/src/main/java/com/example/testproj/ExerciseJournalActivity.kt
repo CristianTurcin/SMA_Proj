@@ -33,9 +33,10 @@ class ExerciseJournalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise_journal)
 
-        // Inițializare RecyclerView și CalendarView
+        // Inițializare RecyclerView, CalendarView și Button
         exerciseRecyclerView = findViewById(R.id.recyclerViewExercises)
         calendarView = findViewById(R.id.calendarView)
+        buttonAddExercise = findViewById(R.id.buttonAddExercise)
 
         exerciseRecyclerView.layoutManager = LinearLayoutManager(this)
         exerciseList = mutableListOf()
@@ -52,6 +53,12 @@ class ExerciseJournalActivity : AppCompatActivity() {
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val selectedDate = "$year-${month + 1}-$dayOfMonth"  // formatul YYYY-MM-DD
             fetchExercisesForDate(selectedDate)
+        }
+
+        // Listener pentru butonul Add Exercise
+        buttonAddExercise.setOnClickListener {
+            val intent = Intent(this, AddExerciseActivity::class.java)
+            startActivity(intent)
         }
 
         // Adăugăm exercițiile din ziua curentă la deschiderea aplicației
@@ -87,8 +94,14 @@ class ExerciseJournalActivity : AppCompatActivity() {
 
     // Funcția care încarcă exercițiile pentru o anumită dată
     private fun fetchExercisesForDate(date: String) {
-        val filteredExercises = exerciseList.filter { it.date == date }
+        val filteredExercises = exerciseList.filter {
+            Log.d("ExerciseJournalActivity", "Comparing ${it.date} with $date")
+            it.date == date
+        }
         Log.d("ExerciseJournalActivity", "Filtered exercises for date: $date, count: ${filteredExercises.size}")
+        filteredExercises.forEach {
+            Log.d("ExerciseJournalActivity", "Exercise: ${it.name}, Date: ${it.date}")
+        }
         exerciseAdapter = ExerciseAdapter(filteredExercises)
         exerciseRecyclerView.adapter = exerciseAdapter
     }
