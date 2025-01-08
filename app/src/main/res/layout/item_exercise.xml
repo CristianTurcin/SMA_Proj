@@ -3,34 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="?android:attr/selectableItemBackground">
 
+    <!-- Numele exercițiului -->
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/textViewExerciseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exercise Name"
         android:textSize="18sp"
-        android:layout_marginBottom="8dp" />
+        android:textStyle="bold"
+        android:paddingBottom="4dp" />
 
-    <TextView
-        android:id="@+id/textViewRepetitions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Repetitions: 0"
-        android:layout_marginBottom="8dp" />
-
+    <!-- Seturile -->
     <TextView
         android:id="@+id/textViewSets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sets: 0"
-        android:layout_marginBottom="8dp" />
+        android:text="Sets: 3"
+        android:textSize="14sp"
+        android:paddingBottom="2dp" />
 
+    <!-- Repetările -->
+    <TextView
+        android:id="@+id/textViewReps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reps: 10"
+        android:textSize="14sp"
+        android:paddingBottom="2dp" />
+
+    <!-- Greutatea -->
     <TextView
         android:id="@+id/textViewWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weight: 0 kg" />
-
+        android:text="Weight: 20kg"
+        android:textSize="14sp" />
 </LinearLayout>

@@ -1,20 +1,17 @@
 package com.example.testproj
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.CalendarView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -25,19 +22,17 @@ class ExerciseJournalActivity : AppCompatActivity() {
     private lateinit var exerciseRecyclerView: RecyclerView
     private lateinit var exerciseAdapter: ExerciseAdapter
     private lateinit var exerciseList: MutableList<Exercise>
-    private lateinit var filteredExerciseList: MutableList<Exercise>
     private lateinit var database: DatabaseReference
-    private lateinit var buttonAddExercise: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise_journal)
 
-        // Inițializare RecyclerView, CalendarView și Button
+        // Inițializare RecyclerView și CalendarView
         exerciseRecyclerView = findViewById(R.id.recyclerViewExercises)
         calendarView = findViewById(R.id.calendarView)
-        buttonAddExercise = findViewById(R.id.buttonAddExercise)
 
+        // Setăm RecyclerView
         exerciseRecyclerView.layoutManager = LinearLayoutManager(this)
         exerciseList = mutableListOf()
         exerciseAdapter = ExerciseAdapter(exerciseList)
@@ -51,25 +46,18 @@ class ExerciseJournalActivity : AppCompatActivity() {
 
         // Setăm listener-ul pentru calendar
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val selectedDate = "$year-${month + 1}-$dayOfMonth"  // formatul YYYY-MM-DD
+            val selectedDate = formatDate(year, month, dayOfMonth)
+            Log.d("ExerciseJournalActivity", "Selected date: $selectedDate")
             fetchExercisesForDate(selectedDate)
         }
-
-        // Listener pentru butonul Add Exercise
-        buttonAddExercise.setOnClickListener {
-            val intent = Intent(this, AddExerciseActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Adăugăm exercițiile din ziua curentă la deschiderea aplicației
-        fetchExercisesForDate(getCurrentDate()) // Asigură-te că filtrezi și afișezi exercițiile pentru ziua curentă
     }
-
+    private fun formatDate(year: Int, month: Int, dayOfMonth: Int): String {
+        return String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
+    }
 
     // Funcția care citește exercițiile din Firebase
     private fun fetchExercisesFromDatabase() {
         database.addValueEventListener(object : ValueEventListener {
-            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 exerciseList.clear()
                 for (exerciseSnapshot in snapshot.children) {
@@ -81,7 +69,7 @@ class ExerciseJournalActivity : AppCompatActivity() {
                 }
                 exerciseAdapter.notifyDataSetChanged()
 
-                // Afișează exercițiile pentru data curentă la început
+                // Afișează exercițiile pentru data curentă
                 val currentDate = getCurrentDate()
                 fetchExercisesForDate(currentDate)
             }
@@ -95,15 +83,26 @@ class ExerciseJournalActivity : AppCompatActivity() {
     // Funcția care încarcă exercițiile pentru o anumită dată
     private fun fetchExercisesForDate(date: String) {
         val filteredExercises = exerciseList.filter {
-            Log.d("ExerciseJournalActivity", "Comparing ${it.date} with $date")
-            it.date == date
+            val formattedFirebaseDate = formatDateFromFirebase(it.date)
+            Log.d("ExerciseJournalActivity", "Comparing Firebase date: $formattedFirebaseDate with selected date: $date")
+            formattedFirebaseDate == date
         }
-        Log.d("ExerciseJournalActivity", "Filtered exercises for date: $date, count: ${filteredExercises.size}")
-        filteredExercises.forEach {
-            Log.d("ExerciseJournalActivity", "Exercise: ${it.name}, Date: ${it.date}")
+
+        if (filteredExercises.isNotEmpty()) {
+            exerciseAdapter = ExerciseAdapter(filteredExercises)
+            exerciseRecyclerView.adapter = exerciseAdapter
+        } else {
+            Toast.makeText(this, "No exercises for this date.", Toast.LENGTH_SHORT).show()
         }
-        exerciseAdapter = ExerciseAdapter(filteredExercises)
-        exerciseRecyclerView.adapter = exerciseAdapter
+    }
+
+    // Funcția de formatare pentru data din Firebase
+    private fun formatDateFromFirebase(firebaseDate: String): String {
+        val dateParts = firebaseDate.split("-")
+        val year = dateParts[0].toInt()
+        val month = dateParts[1].toInt() - 1 // Firebase stochează luna în format 01, 02 etc.
+        val day = dateParts[2].toInt()
+        return formatDate(year, month, day)
     }
 
     // Obținem data curentă în formatul YYYY-MM-DD
