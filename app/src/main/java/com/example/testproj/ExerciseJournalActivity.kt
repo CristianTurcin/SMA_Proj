@@ -1,7 +1,9 @@
 package com.example.testproj
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.CalendarView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -50,7 +52,16 @@ class ExerciseJournalActivity : AppCompatActivity() {
             Log.d("ExerciseJournalActivity", "Selected date: $selectedDate")
             fetchExercisesForDate(selectedDate)
         }
+
+        // Adăugăm click listener pentru butonul "Add Exercise"
+        val addExerciseButton: Button = findViewById(R.id.buttonAddExercise)
+        addExerciseButton.setOnClickListener {
+            // Navighează către AddExerciseActivity
+            val intent = Intent(this, AddExerciseActivity::class.java)
+            startActivity(intent)
+        }
     }
+
     private fun formatDate(year: Int, month: Int, dayOfMonth: Int): String {
         return String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
     }
