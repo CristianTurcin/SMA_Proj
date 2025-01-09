@@ -12,26 +12,36 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.widget.Button
+import androidx.core.app.NotificationCompat
+
+
 
 class StepsActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
     private var stepCounter: Sensor? = null
     private lateinit var stepsTextView: TextView
+    private lateinit var endButton: Button
 
     private var isSensorRegistered = false
     private var initialStepCount: Int = -1 // Pentru a calcula pașii incrementali
+    private var totalSteps: Int = 0 // Pașii înregistrați în sesiune
 
-    // TAG pentru loguri
     private val TAG = "StepsActivity"
     private val REQUEST_CODE = 1001
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_steps)
 
         stepsTextView = findViewById(R.id.textViewSteps)
+        endButton = findViewById(R.id.buttonEndStepCounter)
 
         // Inițializare SensorManager
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
@@ -53,6 +63,21 @@ class StepsActivity : AppCompatActivity(), SensorEventListener {
                 arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
                 REQUEST_CODE
             )
+        }
+
+        // Setează funcția pentru butonul "End Step Counter"
+        endButton.setOnClickListener {
+            Log.d(TAG, "End button clicked. Total steps: $totalSteps")
+
+            // Verificăm permisiunile pentru notificări
+            checkNotificationPermissionsAndSend(context = this, steps = totalSteps)
+
+            // Întoarce utilizatorul la DashboardActivity
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+
+            // Închide activitatea curentă
+            finish()
         }
     }
 
@@ -80,21 +105,20 @@ class StepsActivity : AppCompatActivity(), SensorEventListener {
         if (event != null) {
             Log.d(TAG, "Sensor event received: ${event.sensor.name}, value: ${event.values[0]}")
 
-            if (initialStepCount.toFloat() == -1f) {
+            if (initialStepCount == -1) {
                 initialStepCount = event.values[0].toInt() // Setăm numărul inițial de pași
                 Log.d(TAG, "Initial step count set to: $initialStepCount")
             }
 
-            val totalSteps = event.values[0]
-            val stepsSinceStart = totalSteps - initialStepCount
-            Log.d(TAG, "Total steps: $totalSteps, Steps since activity started: $stepsSinceStart")
+            // Calculăm pașii totalizați
+            totalSteps = event.values[0].toInt() - initialStepCount
+            Log.d(TAG, "Total steps: $totalSteps")
 
-            stepsTextView.text = "Steps: ${stepsSinceStart.toInt()}"
+            stepsTextView.text = "Steps: $totalSteps"
         } else {
             Log.e(TAG, "Sensor event is null")
         }
     }
-
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         Log.d(TAG, "Sensor accuracy changed: ${sensor?.name}, new accuracy: $accuracy")
@@ -106,15 +130,65 @@ class StepsActivity : AppCompatActivity(), SensorEventListener {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == REQUEST_CODE) {
+        if (requestCode == 1) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permisiunea a fost acordată, poți accesa senzorul
-                Log.d(TAG, "Permission granted for activity recognition")
+                Log.d(TAG, "Notification permission granted after request")
+                sendNotification(this, totalSteps)
             } else {
-                // Permisiunea a fost refuzată
-                Log.d(TAG, "Permission denied for activity recognition")
+                Log.d(TAG, "Notification permission denied after request")
             }
         }
     }
+
+
+    // Funcția pentru trimiterea notificărilor
+    private fun sendNotification(context: Context, steps: Int) {
+        Log.d(TAG, "Preparing to send notification with steps: $steps")
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channelId = "step_counter_notifications"
+
+        // Verifică și creează canalul de notificare dacă este necesar
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                channelId, "Step Counter Notifications", NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager.createNotificationChannel(channel)
+            Log.d(TAG, "Notification channel created")
+        }
+
+        val notification = NotificationCompat.Builder(context, channelId)
+            .setContentTitle("Step Counter Session Ended")
+            .setContentText("You walked $steps steps in this session.")
+            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setAutoCancel(true)
+            .build()
+
+        notificationManager.notify("step_counter_notification".hashCode(), notification)
+        Log.d(TAG, "Notification sent")
+    }
+
+    // Funcția pentru a verifica permisiunea și a trimite notificările
+    private fun checkNotificationPermissionsAndSend(context: Context, steps: Int) {
+        Log.d(TAG, "Checking notification permission")
+        val hasPermission = ContextCompat.checkSelfPermission(
+            context,
+            android.Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (hasPermission) {
+            Log.d(TAG, "Notification permission granted, sending notification...")
+            sendNotification(context, steps)
+        } else {
+            Log.d(TAG, "Notification permission not granted")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ActivityCompat.requestPermissions(
+                    context as? StepsActivity ?: return,
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    1
+                )
+            }
+        }
+    }
+
 }
+

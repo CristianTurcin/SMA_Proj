@@ -11,42 +11,57 @@
         android:id="@+id/textViewDashboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dashboard"
+        android:text="DASHBOARD"
         android:textSize="24sp"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp" />
 
-    <!-- Button for Exercise Journal -->
-    <Button
-        android:id="@+id/buttonExercise"
-        android:layout_width="wrap_content"
+    <!-- Container for Buttons -->
+    <LinearLayout
+        android:id="@+id/buttonsContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Go to Exercise Journal"
-        android:layout_below="@id/textViewDashboard"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-    <!-- Button for Meal Tracker -->
-    <Button
-        android:id="@+id/buttonMeals"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to Meal Tracker"
-        android:layout_below="@id/buttonExercise"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"/>
+        <!-- Button for Exercise Journal -->
+        <Button
+            android:id="@+id/buttonExercise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exercise Journal"
+            android:layout_marginBottom="20dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"/>
 
-    <!-- Buton pentru Pași -->
-    <Button
-        android:id="@+id/buttonSteps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to Steps Page"
-        android:layout_below="@id/buttonMeals"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        <!-- Button for Meal Tracker -->
+        <Button
+            android:id="@+id/buttonMeals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Meal Tracker"
+            android:layout_marginBottom="20dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"/>
 
+        <!-- Button for Steps -->
+        <Button
+            android:id="@+id/buttonSteps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Steps Counter"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"/>
+    </LinearLayout>
 
 </RelativeLayout>

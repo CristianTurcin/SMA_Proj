@@ -44,7 +44,9 @@
         android:text="Login"
         android:layout_below="@id/editTextPassword"
         android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_background"/>
 
     <!-- Textul pentru a naviga spre înregistrare -->
     <TextView

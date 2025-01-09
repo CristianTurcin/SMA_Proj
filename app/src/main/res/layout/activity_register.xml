@@ -4,13 +4,26 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <!-- Textul "Register" -->
+    <TextView
+        android:id="@+id/textViewRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+
     <!-- Email EditText -->
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:layout_below="@id/textViewRegister"
+        android:layout_marginTop="16dp"/>
 
     <!-- Parola EditText -->
     <EditText
@@ -29,6 +42,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextPassword"
         android:text="Register"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_background"
+        />
 
 </RelativeLayout>

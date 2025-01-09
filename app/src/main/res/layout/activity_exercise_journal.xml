@@ -14,6 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="Exercise Journal"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:layout_marginBottom="20dp"/>
 
@@ -33,7 +34,11 @@
         android:layout_below="@id/calendarView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Add Exercise" />
+        android:text="Add Exercise"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_background"
+        android:padding="16dp"
+        />
 
 
     <!-- RecyclerView pentru listarea exercițiilor -->
