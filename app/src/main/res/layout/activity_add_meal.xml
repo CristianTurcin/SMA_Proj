@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddMealActivity">
+
+    <!-- EditText pentru numele mesei -->
+    <EditText
+        android:id="@+id/editTextMealName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Meal Name"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- EditText pentru caloriile mesei -->
+    <EditText
+        android:id="@+id/editTextCalories"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Calories"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextMealName"
+        android:layout_marginTop="16dp"/>
+
+    <!-- EditText pentru proteine -->
+    <EditText
+        android:id="@+id/editTextProtein"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Protein (g)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextCalories"
+        android:layout_marginTop="16dp"/>
+
+    <!-- EditText pentru carbohidrați -->
+    <EditText
+        android:id="@+id/editTextCarbs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Carbs (g)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextProtein"
+        android:layout_marginTop="16dp"/>
+
+    <!-- EditText pentru grăsimi -->
+    <EditText
+        android:id="@+id/editTextFats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Fats (g)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextCarbs"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Buton pentru salvarea mesei -->
+    <Button
+        android:id="@+id/buttonSaveMeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Meal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextFats"
+        android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

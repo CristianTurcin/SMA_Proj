@@ -2,15 +2,16 @@ package com.example.testproj
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 
 class DashboardActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
 
         val buttonExercise: Button = findViewById(R.id.buttonExercise)
         val buttonMeals: Button = findViewById(R.id.buttonMeals)
@@ -27,7 +28,6 @@ class DashboardActivity : AppCompatActivity() {
             // Lansează activitatea de Monitorizare Mese
             val intent = Intent(this, MealTrackerActivity::class.java)
             startActivity(intent)
-
         }
     }
 }
