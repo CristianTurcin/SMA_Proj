@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextEmail"
-        android:hint="Parolă"
+        android:hint="Password"
         android:inputType="textPassword"
         android:layout_marginTop="16dp"/>
 
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextPassword"
-        android:text="Înregistrează-te"
+        android:text="Register"
         android:layout_marginTop="16dp"/>
 
 </RelativeLayout>

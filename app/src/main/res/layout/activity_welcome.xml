@@ -19,7 +19,7 @@
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Înregistrează-te"
+        android:text="Register"
         android:layout_below="@id/textViewWelcome"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
