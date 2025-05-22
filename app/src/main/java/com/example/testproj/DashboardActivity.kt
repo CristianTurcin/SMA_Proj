@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -12,6 +14,22 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseDatabase.getInstance().getReference("users").child(uid)
+
+        val textWelcome = findViewById<TextView>(R.id.textWelcome)
+        val textMotivation = findViewById<TextView>(R.id.textMotivation)
+
+        db.child("name").get().addOnSuccessListener { snapshot ->
+            val name = snapshot.value?.toString() ?: "user"
+            textWelcome.text = "Welcome, $name! 👋"
+            textMotivation.text = "\"Keep pushing! Every step counts.\""
+        }.addOnFailureListener {
+            textWelcome.text = "Welcome! 👋"
+            textMotivation.text = "\"Stay consistent, results will follow.\""
+        }
+
 
         val buttonExercise: Button = findViewById(R.id.buttonExercise)
         val buttonMeals: Button = findViewById(R.id.buttonMeals)

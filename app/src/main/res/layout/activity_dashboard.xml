@@ -19,6 +19,38 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp" />
 
+    <LinearLayout
+        android:id="@+id/welcomeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="24dp"
+        android:padding="16dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/textWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome, John! 👋"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/textMotivation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keep pushing! Every step counts."
+        android:textSize="16sp"
+        android:textColor="#CCCCCC"
+        android:layout_marginTop="4dp"
+        android:gravity="center" />
+    </LinearLayout>
+
+
+
     <!-- Container for Buttons -->
     <LinearLayout
         android:id="@+id/buttonsContainer"
