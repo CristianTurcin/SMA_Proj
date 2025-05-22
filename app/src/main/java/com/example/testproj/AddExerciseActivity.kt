@@ -5,11 +5,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class AddExerciseActivity : AppCompatActivity() {
 
@@ -19,7 +19,8 @@ class AddExerciseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_exercise)
 
-        database = FirebaseDatabase.getInstance().getReference("exercises")
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        database = FirebaseDatabase.getInstance().getReference("exercises").child(uid)
 
         val exerciseNameEditText: EditText = findViewById(R.id.editTextExerciseName)
         val setsEditText: EditText = findViewById(R.id.editTextSets)
@@ -39,14 +40,16 @@ class AddExerciseActivity : AppCompatActivity() {
             }
 
             val exerciseId = database.push().key ?: return@setOnClickListener
-            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) // Obținem data curentă
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
             val exercise = Exercise(exerciseId, exerciseName, sets.toInt(), reps.toInt(), weight.toDouble(), date)
 
-            database.child(exerciseId).setValue(exercise)
+
+            database.child(date).child(exerciseId).setValue(exercise)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         Toast.makeText(this, "Exercise saved successfully!", Toast.LENGTH_SHORT).show()
-                        finish()  // Închide AddExerciseActivity și revine la ExerciseJournalActivity
+                        finish()
                     } else {
                         Toast.makeText(this, "Failed to save exercise", Toast.LENGTH_SHORT).show()
                     }

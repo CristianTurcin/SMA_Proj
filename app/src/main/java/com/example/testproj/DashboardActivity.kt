@@ -17,6 +17,11 @@ class DashboardActivity : AppCompatActivity() {
         val buttonMeals: Button = findViewById(R.id.buttonMeals)
         val buttonSteps: Button = findViewById(R.id.buttonSteps)
 
+        findViewById<Button>(R.id.buttonUserProfile).setOnClickListener {
+            startActivity(Intent(this, UserProfileActivity::class.java))
+        }
+
+
         // Setăm listener pentru butonul de Jurnal exerciții
         buttonExercise.setOnClickListener {
             // Lansează activitatea de Jurnal Exerciții

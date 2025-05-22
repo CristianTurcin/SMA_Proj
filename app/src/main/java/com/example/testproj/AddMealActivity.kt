@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
@@ -18,7 +19,8 @@ class AddMealActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_meal)
 
-        database = FirebaseDatabase.getInstance().getReference("meals")
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        database = FirebaseDatabase.getInstance().getReference("meals").child(uid)
 
         val mealNameEditText: EditText = findViewById(R.id.editTextMealName)
         val caloriesEditText: EditText = findViewById(R.id.editTextCalories)
@@ -40,14 +42,14 @@ class AddMealActivity : AppCompatActivity() {
             }
 
             val mealId = database.push().key ?: return@setOnClickListener
-            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) // Obținem data curentă
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
             val meal = Meal(mealId, mealName, calories.toInt(), protein.toInt(), carbs.toInt(), fats.toInt(), date)
 
-            database.child(mealId).setValue(meal)
+            database.child(date).child(mealId).setValue(meal)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         Toast.makeText(this, "Meal saved successfully!", Toast.LENGTH_SHORT).show()
-                        finish()  // Închide AddMealActivity și revine la MealTrackerActivity
+                        finish()
                     } else {
                         Toast.makeText(this, "Failed to save meal", Toast.LENGTH_SHORT).show()
                     }
