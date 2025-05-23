@@ -50,6 +50,9 @@
 
         <activity android:name=".StepsActivity"></activity>
 
+        <receiver android:name=".ReminderReceiver" />
+
+
 
 
 

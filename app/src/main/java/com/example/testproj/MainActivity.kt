@@ -13,16 +13,29 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.testproj.ui.theme.TestProjTheme
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                1001
+            )
+        }
+
+
         // Lansează DashboardActivity
         val intent = Intent(this, DashboardActivity::class.java)
         startActivity(intent)
+
     }
 }
