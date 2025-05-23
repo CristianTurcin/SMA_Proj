@@ -1,5 +1,6 @@
 package com.example.testproj
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -35,7 +36,12 @@ class UserProfileActivity : AppCompatActivity() {
         buttonSave = findViewById(R.id.buttonSaveProfile)
         textLastUpdated = findViewById(R.id.textLastUpdated)
 
-        // Set spinner options
+
+        findViewById<ImageButton>(R.id.buttonViewChart).setOnClickListener {
+            val intent = Intent(this, WeightChartActivity::class.java)
+            startActivity(intent)
+        }
+
         val sexOptions = arrayOf("Male", "Female")
         val goalOptions = arrayOf("Lose weight", "Maintain", "Gain muscle")
         val activityOptions = arrayOf(
@@ -95,33 +101,20 @@ class UserProfileActivity : AppCompatActivity() {
 
     private fun saveUserProfile() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        val db = FirebaseDatabase.getInstance().getReference("users").child(uid)
+        val userRef = FirebaseDatabase.getInstance().getReference("users").child(uid)
 
         val name = editName.text.toString()
         val age = editAge.text.toString().toIntOrNull()
         val height = editHeight.text.toString().toIntOrNull()
         val weight = editWeight.text.toString().toFloatOrNull()
 
-        when {
-            name.isBlank() -> {
-                Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
-                return
-            }
-            age == null || age <= 0 || age > 120 -> {
-                Toast.makeText(this, "Please enter a valid age", Toast.LENGTH_SHORT).show()
-                return
-            }
-            height == null || height <= 0 || height > 300 -> {
-                Toast.makeText(this, "Please enter a valid height", Toast.LENGTH_SHORT).show()
-                return
-            }
-            weight == null || weight <= 0 || weight > 600 -> {
-                Toast.makeText(this, "Please enter a valid weight", Toast.LENGTH_SHORT).show()
-                return
-            }
+        if (name.isBlank() || age == null || height == null || weight == null) {
+            Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show()
+            return
         }
 
         val currentTime = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
         val userProfile = mapOf(
             "name" to name,
@@ -134,13 +127,16 @@ class UserProfileActivity : AppCompatActivity() {
             "lastUpdated" to currentTime
         )
 
-        db.setValue(userProfile).addOnSuccessListener {
-            Toast.makeText(this, "Profile saved successfully", Toast.LENGTH_SHORT).show()
+
+        userRef.updateChildren(userProfile).addOnSuccessListener {
+            Toast.makeText(this, "Profile saved!", Toast.LENGTH_SHORT).show()
             finish()
-        }.addOnFailureListener {
-            Toast.makeText(this, "Error saving profile", Toast.LENGTH_SHORT).show()
         }
+
+
+        userRef.child("weightHistory").child(today).setValue(weight)
     }
+
 
     private fun loadUserProfile() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
