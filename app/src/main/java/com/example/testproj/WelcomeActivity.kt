@@ -1,9 +1,11 @@
 package com.example.testproj
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -13,6 +15,15 @@ class WelcomeActivity : AppCompatActivity() {
 
         // Ascundem bara de acțiune
         supportActionBar?.hide()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                1001
+            )
+        }
+
 
         // Căutăm butoanele pentru login și register
         val loginButton: Button = findViewById(R.id.buttonLogin)

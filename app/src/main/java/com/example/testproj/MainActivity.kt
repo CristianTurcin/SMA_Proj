@@ -24,18 +24,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
-                1001
-            )
-        }
-
-
-        // Lansează DashboardActivity
-        val intent = Intent(this, DashboardActivity::class.java)
-        startActivity(intent)
-
     }
 }

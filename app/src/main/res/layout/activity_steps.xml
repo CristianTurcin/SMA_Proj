@@ -12,7 +12,8 @@
         android:text="0 STEPS"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:layout_centerInParent="true" /> <!-- Așezăm TextView în mijlocul paginii -->
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp" />
 
     <!-- Butonul End Step Counter -->
     <Button
@@ -27,4 +28,16 @@
         android:textColor="#FFFFFF"
         android:background="@drawable/button_background"/>
 
+    <!-- Butonul View Steps History -->
+    <Button
+        android:id="@+id/buttonViewStepsGraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Steps History"
+        android:textSize="16sp"
+        android:layout_below="@id/buttonEndStepCounter"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_background"/>
 </RelativeLayout>

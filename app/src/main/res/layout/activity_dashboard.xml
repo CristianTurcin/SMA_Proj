@@ -6,7 +6,6 @@
     android:padding="16dp"
     tools:ignore="ExtraText">
 
-    <!-- Title for DashboardActivity -->
     <TextView
         android:id="@+id/textViewDashboard"
         android:layout_width="wrap_content"
@@ -43,15 +42,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Keep pushing! Every step counts."
-        android:textSize="16sp"
-        android:textColor="#CCCCCC"
-        android:layout_marginTop="4dp"
-        android:gravity="center" />
+            android:textSize="16sp"
+            android:textColor="#CCCCCC"
+            android:layout_marginTop="4dp"
+            android:gravity="center" />
+
+        <!-- Nou: TextView pentru afișarea pașilor -->
+        <TextView
+            android:id="@+id/textStepToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today you walked: - steps 👟"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="8dp"
+            android:gravity="center" />
     </LinearLayout>
 
-
-
-    <!-- Container for Buttons -->
     <LinearLayout
         android:id="@+id/buttonsContainer"
         android:layout_width="match_parent"
@@ -69,10 +76,8 @@
             android:textColor="#FFFFFF"
             android:background="@drawable/button_background"
             android:paddingLeft="32dp"
-            android:paddingRight="32dp"/>
+            android:paddingRight="32dp" />
 
-
-        <!-- Button for Exercise Journal -->
         <Button
             android:id="@+id/buttonExercise"
             android:layout_width="match_parent"
@@ -82,9 +87,8 @@
             android:textColor="#FFFFFF"
             android:background="@drawable/button_background"
             android:paddingLeft="32dp"
-            android:paddingRight="32dp"/>
+            android:paddingRight="32dp" />
 
-        <!-- Button for Meal Tracker -->
         <Button
             android:id="@+id/buttonMeals"
             android:layout_width="match_parent"
@@ -94,9 +98,8 @@
             android:textColor="#FFFFFF"
             android:background="@drawable/button_background"
             android:paddingLeft="32dp"
-            android:paddingRight="32dp"/>
+            android:paddingRight="32dp" />
 
-        <!-- Button for Steps -->
         <Button
             android:id="@+id/buttonSteps"
             android:layout_width="match_parent"
@@ -105,8 +108,7 @@
             android:textColor="#FFFFFF"
             android:background="@drawable/button_background"
             android:paddingLeft="32dp"
-            android:paddingRight="32dp"/>
+            android:paddingRight="32dp" />
     </LinearLayout>
-
 
 </RelativeLayout>

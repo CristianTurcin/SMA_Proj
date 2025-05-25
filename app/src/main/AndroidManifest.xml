@@ -41,17 +41,20 @@
 
         <activity android:name=".WeightChartActivity" />
 
-        <activity android:name=".ExerciseJournalActivity"></activity>
+        <activity android:name=".ExerciseJournalActivity"/>
 
-        <activity android:name=".AddExerciseActivity"></activity>
+        <activity android:name=".AddExerciseActivity"/>
 
-        <activity android:name=".MealTrackerActivity"></activity>
+        <activity android:name=".MealTrackerActivity"/>
 
-        <activity android:name=".AddMealActivity"></activity>
+        <activity android:name=".AddMealActivity"/>
 
-        <activity android:name=".StepsActivity"></activity>
+        <activity android:name=".StepsActivity" />
 
         <receiver android:name=".ReminderReceiver" />
+
+        <activity android:name=".StepsGraphActivity" />
+
 
 
 
