@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="#121212"
     tools:context=".StepsGraphActivity">
 
     <!-- Titlu -->
@@ -43,7 +44,7 @@
         android:id="@+id/stepsProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="4dp"
         android:progress="0"
@@ -61,4 +62,16 @@
         android:textSize="16sp"
         android:gravity="end"
         android:layout_marginTop="4dp" />
+
+    <!-- Buton pentru setarea targetului -->
+    <Button
+        android:id="@+id/buttonSetTarget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Steps Target"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#6200EE" />
+
 </LinearLayout>
