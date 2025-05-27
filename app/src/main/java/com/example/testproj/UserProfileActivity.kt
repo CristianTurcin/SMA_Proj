@@ -98,7 +98,6 @@ class UserProfileActivity : AppCompatActivity() {
             InfoBottomSheet("What is TDEE?", content).show(supportFragmentManager, "info_tdee")
         }
     }
-
     private fun saveUserProfile() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val userRef = FirebaseDatabase.getInstance().getReference("users").child(uid)
@@ -116,26 +115,55 @@ class UserProfileActivity : AppCompatActivity() {
         val currentTime = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
         val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
+        val sex = spinnerSex.selectedItem.toString()
+        val goal = spinnerGoal.selectedItem.toString()
+        val activityLevel = spinnerActivityLevel.selectedItem.toString()
+
+        // Calcule
+        val heightM = height / 100f
+        val bmi = weight / (heightM * heightM)
+
+        val bmr = if (sex.lowercase() == "male") {
+            10 * weight + 6.25 * height - 5 * age + 5
+        } else {
+            10 * weight + 6.25 * height - 5 * age - 161
+        }
+
+        val activityFactor = when {
+            activityLevel.contains("Sedentary", true) -> 1.2
+            activityLevel.contains("Light", true) -> 1.375
+            activityLevel.contains("Moderate", true) -> 1.55
+            activityLevel.contains("Intense", true) -> 1.725
+            activityLevel.contains("Very", true) -> 1.9
+            else -> 1.2
+        }
+
+        val tdee = bmr * activityFactor
+
+        // Date profil
         val userProfile = mapOf(
             "name" to name,
             "age" to age,
             "height" to height,
             "weight" to weight,
-            "sex" to spinnerSex.selectedItem.toString(),
-            "goal" to spinnerGoal.selectedItem.toString(),
-            "activityLevel" to spinnerActivityLevel.selectedItem.toString(),
-            "lastUpdated" to currentTime
+            "sex" to sex,
+            "goal" to goal,
+            "activityLevel" to activityLevel,
+            "lastUpdated" to currentTime,
+            "bmi" to bmi,
+            "bmr" to bmr.toInt(),
+            "tdee" to tdee.toInt()
         )
-
 
         userRef.updateChildren(userProfile).addOnSuccessListener {
             Toast.makeText(this, "Profile saved!", Toast.LENGTH_SHORT).show()
             finish()
         }
 
-
+        // Greutatea în istoricul zilnic
         userRef.child("weightHistory").child(today).setValue(weight)
     }
+
 
 
     private fun loadUserProfile() {
@@ -160,7 +188,7 @@ class UserProfileActivity : AppCompatActivity() {
 
                 textLastUpdated.text = "Last updated: ${lastUpdated ?: "unknown"}"
 
-                // Calculate and display BMI, BMR, TDEE
+
                 val weight = snapshot.child("weight").value?.toString()?.toFloatOrNull()
                 val height = snapshot.child("height").value?.toString()?.toIntOrNull()
                 val age = snapshot.child("age").value?.toString()?.toIntOrNull()

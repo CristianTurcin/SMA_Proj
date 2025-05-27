@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MealTrackerActivity">
 
-    <!-- Textul pentru Meal Tracker -->
+    <!-- Title -->
     <TextView
         android:id="@+id/textViewMealTracker"
         android:layout_width="wrap_content"
@@ -15,45 +15,89 @@
         android:textSize="24sp"
         android:textColor="#FFFFFF"
         android:layout_marginTop="32dp"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- CalendarView pentru selecția datei -->
-    <android.widget.CalendarView
+    <!-- Calendar -->
+    <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMealTracker"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewMealTracker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Calorie Stats -->
+    <TextView
+        android:id="@+id/textViewCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calories: 0 / 0 kcal"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/calendarView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBarCalories"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="8dp"
+        android:progress="0"
+        android:max="100"
+        android:progressTint="#76FF03"
+        android:backgroundTint="#555555"
+        app:layout_constraintTop_toBottomOf="@id/textViewCalories"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
 
-    <!-- Buton pentru adăugarea unei mese -->
+    <!-- Macronutrient Stats -->
+    <TextView
+        android:id="@+id/textViewMacros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Protein: 0g | Carbs: 0g | Fats: 0g"
+        android:textColor="#CCCCCC"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/progressBarCalories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Add Meal Button -->
     <Button
         android:id="@+id/buttonAddMeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Meal"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
         android:padding="12dp"
         android:textColor="#FFFFFF"
-        android:background="@drawable/button_background"/>
+        android:background="@drawable/button_background"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewMacros"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- RecyclerView pentru afișarea meselor -->
+    <!-- Meal List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMeals"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddMeal"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/buttonAddMeal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="16dp"
-        android:padding="8dp"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.CalendarView
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,30 +21,36 @@ class MealTrackerActivity : AppCompatActivity() {
     private lateinit var calendarView: CalendarView
     private lateinit var mealRecyclerView: RecyclerView
     private lateinit var mealAdapter: MealAdapter
+    private lateinit var caloriesText: TextView
+    private lateinit var macroText: TextView
+    private lateinit var progressBar: ProgressBar
+
+    private var selectedDate: String = ""
+    private var userTDEE: Int = 2300 // fallback in case we can't load it
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meal_journal)
 
-        // Inițializare RecyclerView și CalendarView
+        // UI elements
         mealRecyclerView = findViewById(R.id.recyclerViewMeals)
         calendarView = findViewById(R.id.calendarView)
+        caloriesText = findViewById(R.id.textViewCalories)
+        macroText = findViewById(R.id.textViewMacros)
+        progressBar = findViewById(R.id.progressBarCalories)
 
         mealRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Afișează mesele pentru data curentă
-        fetchMealsForDate(getCurrentDate())
+        selectedDate = getCurrentDate()
+        fetchUserTDEE() // will call fetchMealsForDate internally after loading TDEE
 
-        // Setăm listener-ul pentru calendar
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val selectedDate = formatDate(year, month, dayOfMonth)
+            selectedDate = formatDate(year, month, dayOfMonth)
             Log.d("MealTrackerActivity", "Selected date: $selectedDate")
             fetchMealsForDate(selectedDate)
         }
 
-        // Buton "Add Meal"
-        val addMealButton: Button = findViewById(R.id.buttonAddMeal)
-        addMealButton.setOnClickListener {
+        findViewById<Button>(R.id.buttonAddMeal).setOnClickListener {
             startActivity(Intent(this, AddMealActivity::class.java))
         }
     }
@@ -57,6 +65,23 @@ class MealTrackerActivity : AppCompatActivity() {
         return dateFormat.format(calendar.time)
     }
 
+    private fun fetchUserTDEE() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val ref = FirebaseDatabase.getInstance().getReference("users/$uid/tdee")
+
+        ref.get().addOnSuccessListener { snapshot ->
+            val tdeeValue = snapshot.getValue(Int::class.java)
+            if (tdeeValue != null) {
+                userTDEE = tdeeValue
+            }
+            progressBar.max = userTDEE
+            fetchMealsForDate(selectedDate) // moved here after TDEE is guaranteed
+        }.addOnFailureListener {
+            progressBar.max = userTDEE
+            fetchMealsForDate(selectedDate) // fallback
+        }
+    }
+
     private fun fetchMealsForDate(date: String) {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val ref = FirebaseDatabase.getInstance().getReference("meals").child(uid).child(date)
@@ -64,12 +89,25 @@ class MealTrackerActivity : AppCompatActivity() {
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val mealsForDate = mutableListOf<Meal>()
+                var totalCalories = 0
+                var totalProtein = 0
+                var totalCarbs = 0
+                var totalFats = 0
+
                 for (mealSnapshot in snapshot.children) {
                     val meal = mealSnapshot.getValue(Meal::class.java)
                     if (meal != null) {
                         mealsForDate.add(meal)
+                        totalCalories += meal.calories ?: 0
+                        totalProtein += meal.protein ?: 0
+                        totalCarbs += meal.carbs ?: 0
+                        totalFats += meal.fats ?: 0
                     }
                 }
+
+                caloriesText.text = "Calories: $totalCalories / $userTDEE kcal"
+                macroText.text = "Protein: ${totalProtein}g | Carbs: ${totalCarbs}g | Fats: ${totalFats}g"
+                progressBar.progress = totalCalories
 
                 mealAdapter = MealAdapter(mealsForDate)
                 mealRecyclerView.adapter = mealAdapter
