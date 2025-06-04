@@ -18,6 +18,10 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+
+import android.util.Log
+import retrofit2.Call
+
 class DashboardActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
@@ -28,6 +32,7 @@ class DashboardActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
 
         scheduleDailyReminder()
 
@@ -53,6 +58,7 @@ class DashboardActivity : AppCompatActivity(), SensorEventListener {
         val buttonExercise: Button = findViewById(R.id.buttonExercise)
         val buttonMeals: Button = findViewById(R.id.buttonMeals)
         val buttonSteps: Button = findViewById(R.id.buttonSteps)
+        val buttonPrediction: Button = findViewById(R.id.buttonPrediction)
 
         findViewById<Button>(R.id.buttonUserProfile).setOnClickListener {
             startActivity(Intent(this, UserProfileActivity::class.java))
@@ -69,6 +75,10 @@ class DashboardActivity : AppCompatActivity(), SensorEventListener {
         buttonSteps.setOnClickListener {
             startActivity(Intent(this, StepsActivity::class.java))
         }
+        buttonPrediction.setOnClickListener {
+            startActivity(Intent(this, PredictionActivity::class.java))
+        }
+
     }
 
     override fun onResume() {
@@ -148,4 +158,5 @@ class DashboardActivity : AppCompatActivity(), SensorEventListener {
             pendingIntent
         )
     }
+
 }
