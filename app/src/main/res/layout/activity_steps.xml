@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- TextView pentru a afișa numărul de pași -->
+
     <TextView
         android:id="@+id/textViewSteps"
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp" />
 
-    <!-- Butonul End Step Counter -->
+
     <Button
         android:id="@+id/buttonEndStepCounter"
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         android:textColor="#FFFFFF"
         android:background="@drawable/button_background"/>
 
-    <!-- Butonul View Steps History -->
+
     <Button
         android:id="@+id/buttonViewStepsGraph"
         android:layout_width="wrap_content"

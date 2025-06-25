@@ -25,23 +25,23 @@ class ExerciseJournalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise_journal)
 
-        // Inițializare RecyclerView și CalendarView
+
         exerciseRecyclerView = findViewById(R.id.recyclerViewExercises)
         calendarView = findViewById(R.id.calendarView)
 
         exerciseRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Afișează exercițiile pentru data curentă
+
         fetchExercisesForDate(getCurrentDate())
 
-        // Listener pentru selectarea unei date în calendar
+
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val selectedDate = formatDate(year, month, dayOfMonth)
             Log.d("ExerciseJournalActivity", "Selected date: $selectedDate")
             fetchExercisesForDate(selectedDate)
         }
 
-        // Buton "Add Exercise"
+
         val addExerciseButton: Button = findViewById(R.id.buttonAddExercise)
         addExerciseButton.setOnClickListener {
             startActivity(Intent(this, AddExerciseActivity::class.java))

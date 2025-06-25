@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Text pentru a afișa "Daily Activity" -->
+
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
@@ -16,7 +16,7 @@
         android:layout_marginBottom="20dp"
         android:layout_alignParentTop="true" />
 
-    <!-- ListView pentru istoricul pașilor -->
+
     <ListView
         android:id="@+id/historyListView"
         android:layout_width="match_parent"

@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         val loginButton: Button = findViewById(R.id.buttonLogin)
         val registerTextView: TextView = findViewById(R.id.textViewRegister)
 
-        // Când utilizatorul apasă butonul de login
+
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Când utilizatorul apasă pe "Înregistrează-te"
+
         registerTextView.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
@@ -47,12 +47,12 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Autentificare reușită
+
                     val intent = Intent(this, DashboardActivity::class.java)
                     startActivity(intent)
-                    finish()  // Închide LoginActivity după succes
+                    finish()
                 } else {
-                    // Eroare la autentificare
+
                     val errorMessage = task.exception?.message ?: "Necunoscută"
                     Toast.makeText(this, "Autentificare eșuată: $errorMessage", Toast.LENGTH_SHORT)
                         .show()

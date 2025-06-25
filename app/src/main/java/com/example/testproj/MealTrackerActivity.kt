@@ -26,7 +26,7 @@ class MealTrackerActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
 
     private var selectedDate: String = ""
-    private var userTDEE: Int = 2300 // fallback in case we can't load it
+    private var userTDEE: Int = 2300
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class MealTrackerActivity : AppCompatActivity() {
         mealRecyclerView.layoutManager = LinearLayoutManager(this)
 
         selectedDate = getCurrentDate()
-        fetchUserTDEE() // will call fetchMealsForDate internally after loading TDEE
+        fetchUserTDEE()
 
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             selectedDate = formatDate(year, month, dayOfMonth)
@@ -75,10 +75,10 @@ class MealTrackerActivity : AppCompatActivity() {
                 userTDEE = tdeeValue
             }
             progressBar.max = userTDEE
-            fetchMealsForDate(selectedDate) // moved here after TDEE is guaranteed
+            fetchMealsForDate(selectedDate)
         }.addOnFailureListener {
             progressBar.max = userTDEE
-            fetchMealsForDate(selectedDate) // fallback
+            fetchMealsForDate(selectedDate)
         }
     }
 

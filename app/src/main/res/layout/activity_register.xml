@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Textul "Register" -->
+
     <TextView
         android:id="@+id/textViewRegister"
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"/>
 
-    <!-- Email EditText -->
+
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:layout_below="@id/textViewRegister"
         android:layout_marginTop="16dp"/>
 
-    <!-- Parola EditText -->
+
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
         android:inputType="textPassword"
         android:layout_marginTop="16dp"/>
 
-    <!-- Butonul de înregistrare -->
+
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"

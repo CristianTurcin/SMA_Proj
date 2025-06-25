@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
-        <!-- WelcomeActivity - Activitatea principală -->
+
         <activity android:name=".WelcomeActivity"
             android:exported="true">
             <intent-filter>
@@ -29,12 +29,12 @@
             </intent-filter>
         </activity>
 
-        <!-- RegisterActivity - Activitate pentru înregistrare -->
+
         <activity android:name=".RegisterActivity" android:exported="true" />
 
         <activity android:name=".LoginActivity" />
 
-        <!-- Activitatea DashboardActivity -->
+
         <activity android:name=".DashboardActivity" />
 
         <activity android:name=".UserProfileActivity" />

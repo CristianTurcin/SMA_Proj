@@ -11,7 +11,7 @@ class ExerciseAdapter(private val exerciseList: List<Exercise>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_exercise, parent, false)  // Asigură-te că ai layout-ul corect
+            .inflate(R.layout.item_exercise, parent, false)
         return ExerciseViewHolder(view)
     }
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MealTrackerActivity">
 
-    <!-- Title -->
+
     <TextView
         android:id="@+id/textViewMealTracker"
         android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Calendar -->
+
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="0dp"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Calorie Stats -->
+
     <TextView
         android:id="@+id/textViewCalories"
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Progress Bar -->
+
     <ProgressBar
         android:id="@+id/progressBarCalories"
         style="?android:attr/progressBarStyleHorizontal"
@@ -61,7 +61,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp" />
 
-    <!-- Macronutrient Stats -->
+
     <TextView
         android:id="@+id/textViewMacros"
         android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Add Meal Button -->
+
     <Button
         android:id="@+id/buttonAddMeal"
         android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Meal List -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMeals"
         android:layout_width="0dp"

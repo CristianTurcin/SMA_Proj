@@ -6,7 +6,7 @@
     android:padding="16dp"
     android:background="?android:attr/selectableItemBackground">
 
-    <!-- Numele exercițiului -->
+
     <TextView
         android:id="@+id/textViewExerciseName"
         android:layout_width="wrap_content"
@@ -16,7 +16,7 @@
         android:textStyle="bold"
         android:paddingBottom="4dp" />
 
-    <!-- Seturile -->
+
     <TextView
         android:id="@+id/textViewSets"
         android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
         android:textSize="14sp"
         android:paddingBottom="2dp" />
 
-    <!-- Repetările -->
+
     <TextView
         android:id="@+id/textViewReps"
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         android:textSize="14sp"
         android:paddingBottom="2dp" />
 
-    <!-- Greutatea -->
+
     <TextView
         android:id="@+id/textViewWeight"
         android:layout_width="wrap_content"

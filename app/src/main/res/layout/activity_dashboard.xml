@@ -47,7 +47,7 @@
             android:layout_marginTop="4dp"
             android:gravity="center" />
 
-        <!-- Nou: TextView pentru afișarea pașilor -->
+
         <TextView
             android:id="@+id/textStepToday"
             android:layout_width="wrap_content"

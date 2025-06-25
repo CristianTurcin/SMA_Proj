@@ -41,25 +41,25 @@ class WeightChartActivity : AppCompatActivity() {
 
         lineChart.data = LineData(dataSet)
 
-        // Background
+
         lineChart.setBackgroundColor(Color.parseColor("#121212"))
 
-        // Grid lines
+
         lineChart.axisLeft.gridColor = Color.parseColor("#333333")
         lineChart.axisRight.gridColor = Color.parseColor("#333333")
         lineChart.xAxis.gridColor = Color.parseColor("#333333")
 
-        // Text colors
+
         lineChart.axisLeft.textColor = Color.WHITE
         lineChart.axisRight.textColor = Color.WHITE
         lineChart.xAxis.textColor = Color.WHITE
         lineChart.legend.textColor = Color.WHITE
         lineChart.description.textColor = Color.WHITE
 
-        // Disable right axis
+
         lineChart.axisRight.isEnabled = false
 
-        // X axis labels
+
         lineChart.xAxis.apply {
             position = XAxis.XAxisPosition.BOTTOM
             labelRotationAngle = -45f

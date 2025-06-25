@@ -6,7 +6,7 @@
     android:gravity="center"
     android:padding="16dp">
 
-    <!-- Text simplu pentru MainActivity -->
+
     <TextView
         android:id="@+id/textViewMain"
         android:layout_width="wrap_content"

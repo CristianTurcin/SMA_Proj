@@ -119,7 +119,7 @@ class UserProfileActivity : AppCompatActivity() {
         val goal = spinnerGoal.selectedItem.toString()
         val activityLevel = spinnerActivityLevel.selectedItem.toString()
 
-        // Calcule
+
         val heightM = height / 100f
         val bmi = weight / (heightM * heightM)
 
@@ -140,7 +140,7 @@ class UserProfileActivity : AppCompatActivity() {
 
         val tdee = bmr * activityFactor
 
-        // Date profil
+
         val userProfile = mapOf(
             "name" to name,
             "age" to age,
@@ -160,7 +160,7 @@ class UserProfileActivity : AppCompatActivity() {
             finish()
         }
 
-        // Greutatea în istoricul zilnic
+
         userRef.child("weightHistory").child(today).setValue(weight)
     }
 

@@ -22,7 +22,7 @@ class RegisterActivity : AppCompatActivity() {
         val passwordEditText: EditText = findViewById(R.id.editTextPassword)
         val registerButton: Button = findViewById(R.id.buttonRegister)
 
-        // Când utilizatorul apasă butonul de înregistrare
+
         registerButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
@@ -39,15 +39,15 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Înregistrare reușită
+
                     Toast.makeText(this, "Înregistrare cu succes", Toast.LENGTH_SHORT).show()
 
-                    // Revenire la WelcomeActivity pentru a oferi posibilitatea unei noi înregistrări
+
                     val intent = Intent(this, WelcomeActivity::class.java)
                     startActivity(intent)
-                    finish()  // Închide RegisterActivity după succes
+                    finish()
                 } else {
-                    // Eroare la înregistrare
+
                     Toast.makeText(this, "Înregistrare eșuată: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }

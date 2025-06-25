@@ -57,10 +57,10 @@ class PredictionActivity : AppCompatActivity() {
                 count++
                 if (count == 3) {
                     if (weight != null && calories != null && steps != null) {
-                        Log.d("ML_FILTER", "✅ Accepted $date | weight=$weight, cal=$calories, steps=$steps")
+                        Log.d("ML_FILTER", "Accepted $date | weight=$weight, cal=$calories, steps=$steps")
                         daysData.add(listOf(weight!!, calories!!, steps!!))
                     } else {
-                        Log.d("ML_FILTER", "❌ Skipped $date | weight=$weight, cal=$calories, steps=$steps")
+                        Log.d("ML_FILTER", "Skipped $date | weight=$weight, cal=$calories, steps=$steps")
                     }
                     onComplete()
                 }

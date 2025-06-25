@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#121212"
     tools:context=".StepsGraphActivity">
 
-    <!-- Titlu -->
+
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
@@ -21,14 +20,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="12dp" />
 
-    <!-- Grafic cu coloane -->
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginBottom="24dp" />
 
-    <!-- Text pentru număr de pași -->
+
     <TextView
         android:id="@+id/textViewStepCount"
         android:layout_width="wrap_content"
@@ -39,7 +38,7 @@
         android:textStyle="bold"
         android:layout_gravity="center_horizontal" />
 
-    <!-- Bara de progres -->
+
     <ProgressBar
         android:id="@+id/stepsProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -52,7 +51,7 @@
         android:progressTint="#00FF00"
         android:backgroundTint="#333333" />
 
-    <!-- Ținta de pași -->
+
     <TextView
         android:id="@+id/textViewTarget"
         android:layout_width="match_parent"
@@ -63,7 +62,7 @@
         android:gravity="end"
         android:layout_marginTop="4dp" />
 
-    <!-- Buton pentru setarea targetului -->
+
     <Button
         android:id="@+id/buttonSetTarget"
         android:layout_width="wrap_content"
